@@ -7,11 +7,11 @@ class VendingMachine:
 
     def insert(cash):
         accepted = [
-            (Money.M_10),
-            (Money.M_50),
-            (Money.M_100),
-            (Money.M_500),
-            (Money.M_1000),
+            Money.M_10,
+            Money.M_50,
+            Money.M_100,
+            Money.M_500,
+            Money.M_1000,
         ]
         if cash in accepted:
             VendingMachine.money_box.append(cash)
