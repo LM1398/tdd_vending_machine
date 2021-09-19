@@ -6,5 +6,4 @@ def test_insert():
     VendingMachine.insert(Money.M_100)
     VendingMachine.insert(Money.M_500)
     VendingMachine.insert(Money.M_1000)
-    assert VendingMachine.money_box == 1600
-
+    assert VendingMachine.money_box == [Money.M_100, Money.M_500, Money.M_1000]

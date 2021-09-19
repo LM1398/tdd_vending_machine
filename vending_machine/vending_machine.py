@@ -2,7 +2,7 @@ from vending_machine.money import Money
 
 
 class VendingMachine:
-    money_box = 0
+    money_box = []
 
     def insert(cash):
-        VendingMachine.money_box += cash.amount
+        VendingMachine.money_box.append(cash)
