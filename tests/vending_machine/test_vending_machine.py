@@ -24,7 +24,7 @@ def test_change(cash, change):
     assert vending_machine.change == change
 
 
-vending = VendingMachine()
+vending_machine = VendingMachine()
 
 
 @pytest.mark.parametrize(
@@ -51,6 +51,6 @@ vending = VendingMachine()
     ],
 )
 def test_money_box(cash, money_box):
-    vending.insert(cash)
+    vending_machine.insert(cash)
 
-    assert vending.money_box == money_box
+    assert vending_machine.money_box == money_box
