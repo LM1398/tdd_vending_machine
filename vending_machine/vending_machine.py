@@ -1,4 +1,3 @@
-from typing import Counter
 from vending_machine.money import Money
 from vending_machine.drinks import Drinks
 from collections import Counter
