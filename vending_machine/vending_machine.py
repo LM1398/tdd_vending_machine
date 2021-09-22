@@ -2,10 +2,11 @@ from vending_machine.money import Money
 
 
 class VendingMachine:
-    money_box = []
-    change = []
+    def __init__(self):
+        self.money_box = []
+        self.change = []
 
-    def insert(cash):
+    def insert(self, cash):
         accepted = [
             Money.M_10,
             Money.M_50,
@@ -14,6 +15,6 @@ class VendingMachine:
             Money.M_1000,
         ]
         if cash in accepted:
-            VendingMachine.money_box.append(cash)
+            self.money_box.append(cash)
         else:
-            VendingMachine.change.append(cash)
+            self.change.append(cash)
