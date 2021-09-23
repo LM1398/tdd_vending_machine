@@ -1,6 +1,6 @@
     """ Contains money_box,change, fridge, and stock to organize money and drinks.
-    insert method: inserts money from money.py into change and money_box.
-    add_drink: adds drink from drink.py into fridge and stock.
+insert method: inserts money from money.py into change and money_box.
+add_drink: adds drink from drink.py into fridge and stock.
     """
 
 from vending_machine.money import Money
@@ -9,6 +9,11 @@ from collections import Counter
 
 
 class VendingMachine:
+    """ Main class to organize all of the different src files and classes.
+    __init__ is used to create instances to insert the drink and money instances from the other classes (money.py and drinks.py)
+    insert separates the types of money into accepted and not-accepted(change) and inserts them into the different lists
+    add_drink is used to add a certain amount of drinks into the fridge list, and the stock counts the number of each drink
+    """
     def __init__(self):
         self.money_box = []
         self.change = []
