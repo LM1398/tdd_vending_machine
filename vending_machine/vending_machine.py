@@ -1,3 +1,8 @@
+    """ Contains money_box,change, fridge, and stock to organize money and drinks.
+    insert method: inserts money from money.py into change and money_box.
+    add_drink: adds drink from drink.py into fridge and stock.
+    """
+
 from vending_machine.money import Money
 from vending_machine.drinks import Drinks
 from collections import Counter
