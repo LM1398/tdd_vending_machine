@@ -26,7 +26,7 @@ class VendingMachine:
         """dictionary that counts the amount of each drink in self.fridge"
         """
 
-    def insert(cash):
+    def insert(self, cash):
         """ insert separates the types of money into accepted and not-accepted(change) and inserts them into the different lists.
         Args:
             cash (instance): Money.M_x instance from class Money in money.py
@@ -39,9 +39,9 @@ class VendingMachine:
             Money.M_1000,
         ]
         if cash in accepted:
-            VendingMachine.money_box.append(cash)
+            self.money_box.append(cash)
         else:
-            VendingMachine.change.append(cash)
+            self.change.append(cash)
 
     def add_drink(self, drink, amount):
         """add_drink is used to add a certain amount of drinks into the fridge list, and the stock counts the number of each drink.
@@ -53,3 +53,25 @@ class VendingMachine:
             if _drink <= amount:
                 self.fridge.append(drink.name)
         self.stock = Counter(self.fridge)
+
+    def purchasable(self, drink):
+        """Returns whether a drink is purchasable depending on how much money is inserted and whether the drink is in fridge
+
+        Args:
+            drink ([instance]): instance of specific drink created using class Drink in drink.py
+
+        Returns:
+            [string]: "drink is purchasable" or "drink is not in stock"
+        """
+        total = 0
+        for cash in self.money_box:
+            total += cash.amount
+            if total > drink.price:
+                pass
+            else:
+                return f"Insert additional money: {drink.price - total} yen"
+        if drink.name in self.fridge:
+            return "coke is purchasable"
+        else:
+            return "coke is not in stock"
+
