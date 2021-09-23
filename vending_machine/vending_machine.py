@@ -1,5 +1,5 @@
-    """ Contains class VendingMachine which is used to organize and group the other src files. 
-    """
+""" Contains class VendingMachine which is used to organize and group the other src files. 
+"""
 
 from vending_machine.money import Money
 from vending_machine.drinks import Drinks
@@ -9,6 +9,7 @@ from collections import Counter
 class VendingMachine:
     """ Main class to organize all of the different src files and classes.
     """
+
     def __init__(self):
         """Used to create instances to insert the drink and money instances from the other classes (money.py and drinks.py).
         """
@@ -27,7 +28,6 @@ class VendingMachine:
 
     def insert(cash):
         """ insert separates the types of money into accepted and not-accepted(change) and inserts them into the different lists.
-
         Args:
             cash (instance): Money.M_x instance from class Money in money.py
         """
@@ -45,12 +45,11 @@ class VendingMachine:
 
     def add_drink(self, drink, amount):
         """add_drink is used to add a certain amount of drinks into the fridge list, and the stock counts the number of each drink.
-
         Args:
             drink (instance): instance of specific drink created using class Drink in drink.py
             amount (int): desired number of drinks to be added
         """
-        for x in range(amount + 1):
-            if x < amount:
+        for _drink in range(1, amount + 1):
+            if _drink <= amount:
                 self.fridge.append(drink.name)
         self.stock = Counter(self.fridge)
