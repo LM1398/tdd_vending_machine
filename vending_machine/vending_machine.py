@@ -36,7 +36,7 @@ class VendingMachine:
     def insert(self, cash):
         """ insert separates the types of money into accepted and not-accepted(change) and inserts them into the different lists.
         Args:
-            cash (instance): Money.M_x instance from class Money in money.py.
+            cash (Money): Money.M_x instance from class Money in money.py.
         """
         accepted = [
             Money.M_10,
@@ -82,14 +82,19 @@ class VendingMachine:
         else:
             return f"{drink.name} is not in stock"
 
-    def calculate_change(self, change):
+    def calculate_change(self, pay):
+        """ Calculates the change return with the least amount of coins/bills 
+
+        Args:
+            pay (int): Amount of change that will be returned to the buyer.
+        """
         money = [Money.M_1000, Money.M_500, Money.M_100, Money.M_50, Money.M_10]
         for x in money:
-            if change / x.amount >= 1:
-                for amount in range(1, change // x.amount + 1):
-                    if amount <= change // x.amount:
+            if pay / x.amount >= 1:
+                for amount in range(1, pay // x.amount + 1):
+                    if amount <= pay // x.amount:
                         self.change.append(x)
-                change -= x.amount * (change // x.amount)
+                pay -= x.amount * (pay // x.amount)
 
     def buy(self, drink):
         """ Method to buy drinks from the vending machine.
@@ -112,7 +117,7 @@ class VendingMachine:
                 pass
             for cash in self.money_box:
                 total += cash.amount
-            change = total - drink.price
-            self.calculate_change(change)
+            pay = total - drink.price
+            self.calculate_change(pay)
             self.fridge.remove(drink.name)
             self.revenue = sum(x.amount for x in self.stash)
