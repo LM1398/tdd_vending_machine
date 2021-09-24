@@ -82,17 +82,28 @@ class VendingMachine:
         else:
             return f"{drink.name} is not in stock"
 
+    def calculate_change(self, change):
+        money = [Money.M_1000, Money.M_500, Money.M_100, Money.M_50, Money.M_10]
+        for x in money:
+            if change / x.amount >= 1:
+                for amount in range(1, change // x.amount + 1):
+                    if amount <= change // x.amount:
+                        self.change.append(x)
+                change -= x.amount * (change // x.amount)
+
     def buy(self, drink):
         """ Method to buy drinks from the vending machine.
         If purchasable() returns that the drink is purchasable, the money is inserted into the stash and the change is calculated by subracting the
-        drink price from the amount of money inserted. The change caculates and returns the least amount of coins.
+        drink price from the amount of money inserted. The change calculates and returns the least amount of coins.
         The drink is then removed from the fridge and the total revenue is calcualted.
 
         Args:
             drink ([instance]): instance of specific drink created using class Drink in drink.py.
         """
         total = 0
-        if self.purchasable(drink) == f"{drink.name} is purchasable":
+        if self.purchasable(drink) != f"{drink.name} is purchasable":
+            print(f"{drink.name} is not purchasable")
+        else:
             if drink.price == 120:
                 self.stash.append(Money.M_100)
                 self.stash.append(Money.M_10)
@@ -102,36 +113,6 @@ class VendingMachine:
             for cash in self.money_box:
                 total += cash.amount
             change = total - drink.price
-            if change / 1000 >= 1:
-                for amount in range(1, change // 1000 + 1):
-                    if amount <= change // 1000:
-                        self.change.append(Money.M_1000)
-                change -= Money.M_1000.amount * (change // 1000)
-            print(change)
-            if change / 500 >= 1:
-                for amount in range(1, change // 500 + 1):
-                    if amount <= change // 500:
-                        self.change.append(Money.M_500)
-                change -= Money.M_500.amount * (change // 500)
-            print(change)
-            if change / 100 >= 1:
-                for amount in range(1, change // 100 + 1):
-                    if amount <= change // 100:
-                        self.change.append(Money.M_100)
-                change -= Money.M_100.amount * (change // 100)
-            print(change)
-            if change / 50 >= 1:
-                for amount in range(1, change // 50 + 1):
-                    if amount <= change // 50:
-                        self.change.append(Money.M_50)
-                change -= Money.M_50.amount * (change // 50)
-            if change / 10 >= 1:
-                for amount in range(1, change // 10 + 1):
-                    if amount <= change // 10:
-                        self.change.append(Money.M_10)
-            else:
-                pass
+            self.calculate_change(change)
             self.fridge.remove(drink.name)
             self.revenue = sum(x.amount for x in self.stash)
-        else:
-            print(f"{drink.name} is not purchasable")
