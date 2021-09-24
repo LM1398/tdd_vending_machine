@@ -10,10 +10,10 @@ class VendingMachine:
     """ Main VendingMachine class to organize all of the different src files and classes.
     
     Attributes:
-        money_box = A list where the approved types of currencies are inserted.
-        change = A list where the unaccepted types of currencies as well as change from buying drinks are inserted.
-        fridge = A list with the name of each drink that is inserted in the machine.
-        stock = A dictionary that counts the amount of each drink in self.fridge.
+        money_box: A list where the approved types of currencies are inserted.
+        change: A list where the unaccepted types of currencies as well as change from buying drinks are inserted.
+        fridge: A list with the name of each drink that is inserted in the machine.
+        stock: A dictionary that counts the amount of each drink in self.fridge.
 
     """
 
