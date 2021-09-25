@@ -93,8 +93,7 @@ class VendingMachine:
             at_least_one = pay // x.amount
             if at_least_one >= 1:
                 for amount in range(1, at_least_one + 1):
-                    if amount <= at_least_one:
-                        self.change.append(x)
+                    self.change.append(x)
                 pay -= x.amount * (at_least_one)
 
     def buy(self, drink):
