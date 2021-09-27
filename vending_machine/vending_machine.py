@@ -33,19 +33,23 @@ class VendingMachine:
         """list that counts the total revenue of the vending machine.
         """
 
+        self.accepted = [
+            Money.M_1000,
+            Money.M_500,
+            Money.M_100,
+            Money.M_50,
+            Money.M_10,
+        ]
+        """list of the types of currencies that are accepted in the vending machine.
+        """
+
     def insert(self, cash):
         """ insert separates the types of money into accepted and not-accepted(change) and inserts them into the different lists.
         Args:
             cash (Money): Money.M_x instance from class Money in money.py.
         """
-        accepted = [
-            Money.M_10,
-            Money.M_50,
-            Money.M_100,
-            Money.M_500,
-            Money.M_1000,
-        ]
-        if cash in accepted:
+
+        if cash in self.accepted:
             self.money_box.append(cash)
         else:
             self.change.append(cash)
@@ -88,8 +92,7 @@ class VendingMachine:
         Args:
             pay (int): Amount of change that will be returned to the buyer.
         """
-        money = [Money.M_1000, Money.M_500, Money.M_100, Money.M_50, Money.M_10]
-        for x in money:
+        for x in self.accepted:
             has_type_money = pay // x.amount
             if has_type_money >= 1:
                 for amount in range(1, has_type_money + 1):
