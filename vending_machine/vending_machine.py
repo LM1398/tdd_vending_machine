@@ -58,6 +58,11 @@ class VendingMachine:
                 self.fridge.append(drink.name)
         self.stock = Counter(self.fridge)
 
+    def menu(self):
+        """menu returns the different drinks that are available for purchase.
+        """
+        return set(self.fridge)
+
     def purchasable(self, drink):
 
         """Returns whether a drink is purchasable depending on how much money is inserted and whether the drink is in the fridge.
