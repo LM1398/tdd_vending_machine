@@ -7,32 +7,27 @@ from collections import Counter
 
 
 class VendingMachine:
-    """ Main class to organize all of the different src files and classes.
+    """ Main VendingMachine class to organize all of the different src files and classes.
+    
+    Attributes:
+        money_box: A list where the approved types of currencies are inserted.
+        change: A list where the unaccepted types of currencies as well as change from buying drinks are inserted.
+        fridge: A list with the name of each drink that is inserted in the machine.
+        stock: A dictionary that counts the amount of each drink in self.fridge.
+        revenue: A list that counts the total revenue of the vending machine.
+        accepted: A list of all the accepted types of currencies
+
     """
 
     def __init__(self):
-        """Used to create instances to insert the drink and money instances from the other classes (money.py and drinks.py).
+        """Inits VendingMachine with moneybox, change, fridge, and stock.
         """
         self.money_box = []
-        """list where the approved types of currencies are inserted.
-        """
         self.change = []
-        """list where the change from buying drinks as well as currencies that aren't accepted are inserted.
-        """
         self.fridge = []
-        """list with the name of each drink that is inserted in the machine.
-        """
         self.stock = {}
-        """dictionary that counts the amount of each drink in self.fridge.
-        """
         self.stash = []
-        """list that keeps all of the money used to buy drinks.
-        """
-
         self.revenue = []
-        """list that counts the total revenue of the vending machine.
-        """
-
         self.accepted = [
             Money.M_1000,
             Money.M_500,
@@ -40,13 +35,11 @@ class VendingMachine:
             Money.M_50,
             Money.M_10,
         ]
-        """list of the types of currencies that are accepted in the vending machine.
-        """
 
     def insert(self, cash):
-        """ insert separates the types of money into accepted and not-accepted(change) and inserts them into the different lists.
+        """ Inserts money separates the types of money into accepted and not-accepted(change) and inserts them into the different lists.
         Args:
-            cash (Money): Money.M_x instance from class Money in money.py.
+            cash (Money): Money.M_x instance
         """
 
         if cash in self.accepted:
@@ -57,7 +50,7 @@ class VendingMachine:
     def add_drink(self, drink, amount):
         """add_drink is used to add a certain amount of drinks into the fridge list, and the stock counts the number of each drink.
         Args:
-            drink (instance): instance of specific drink created using class Drink in drink.py.
+            drink (Drinks): instance of specific drink.
             amount (int): desired number of drinks to be added.
         """
         for _drink in range(1, amount + 1):
@@ -66,13 +59,14 @@ class VendingMachine:
         self.stock = Counter(self.fridge)
 
     def purchasable(self, drink):
-        """Returns whether a drink is purchasable depending on how much money is inserted and whether the drink is in fridge.
+
+        """Returns whether a drink is purchasable depending on how much money is inserted and whether the drink is in the fridge.
 
         Args:
-            drink ([instance]): instance of specific drink created using class Drink in drink.py.
+            drink (Drinks): instance of specific drink
 
         Returns:
-            [string]: "drink is purchasable" or "drink is not in stock".
+            str: "drink is purchasable" or "drink is not in stock"
         """
         total = 0
         for cash in self.money_box:
@@ -106,7 +100,7 @@ class VendingMachine:
         The drink is then removed from the fridge and the total revenue is calcualted.
 
         Args:
-            drink ([instance]): instance of specific drink created using class Drink in drink.py.
+            drink (Drinks): instance of specific drink.
         """
         total = 0
         if self.purchasable(drink) != f"{drink.name} is purchasable":
