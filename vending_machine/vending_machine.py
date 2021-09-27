@@ -93,11 +93,11 @@ class VendingMachine:
             pay (int): Amount of change that will be returned to the buyer.
         """
         for x in self.accepted:
-            has_type_money = pay // x.amount
-            if has_type_money >= 1:
-                for amount in range(1, has_type_money + 1):
+            returned_money = pay // x.amount
+            if returned_money >= 1:
+                for amount in range(1, returned_money + 1):
                     self.change.append(x)
-                pay -= x.amount * (has_type_money)
+                pay -= x.amount * (returned_money)
 
     def buy(self, drink):
         """ Method to buy drinks from the vending machine.
