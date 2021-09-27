@@ -14,6 +14,8 @@ class VendingMachine:
         change: A list where the unaccepted types of currencies as well as change from buying drinks are inserted.
         fridge: A list with the name of each drink that is inserted in the machine.
         stock: A dictionary that counts the amount of each drink in self.fridge.
+        revenue: A list that counts the total revenue of the vending machine.
+        accepted: A list of all the accepted types of currencies
 
     """
 
@@ -24,21 +26,23 @@ class VendingMachine:
         self.change = []
         self.fridge = []
         self.stock = {}
+        self.stash = []
+        self.revenue = []
+        self.accepted = [
+            Money.M_1000,
+            Money.M_500,
+            Money.M_100,
+            Money.M_50,
+            Money.M_10,
+        ]
 
     def insert(self, cash):
         """ Inserts money separates the types of money into accepted and not-accepted(change) and inserts them into the different lists.
-
         Args:
             cash (Money): Money.M_x instance
         """
-        accepted = [
-            Money.M_10,
-            Money.M_50,
-            Money.M_100,
-            Money.M_500,
-            Money.M_1000,
-        ]
-        if cash in accepted:
+
+        if cash in self.accepted:
             self.money_box.append(cash)
         else:
             self.change.append(cash)
@@ -55,6 +59,7 @@ class VendingMachine:
         self.stock = Counter(self.fridge)
 
     def purchasable(self, drink):
+
         """Returns whether a drink is purchasable depending on how much money is inserted and whether the drink is in the fridge.
 
         Args:
@@ -71,7 +76,45 @@ class VendingMachine:
             else:
                 return f"Insert additional money: {drink.price - total} yen"
         if drink.name in self.fridge:
-            return "coke is purchasable"
+            return f"{drink.name} is purchasable"
         else:
-            return "coke is not in stock"
+            return f"{drink.name} is not in stock"
 
+    def calculate_change(self, pay):
+        """ Calculates the change return with the least amount of coins/bills 
+
+        Args:
+            pay (int): Amount of change that will be returned to the buyer.
+        """
+        for x in self.accepted:
+            has_type_money = pay // x.amount
+            if has_type_money >= 1:
+                for amount in range(1, has_type_money + 1):
+                    self.change.append(x)
+                pay -= x.amount * (has_type_money)
+
+    def buy(self, drink):
+        """ Method to buy drinks from the vending machine.
+        If purchasable() returns that the drink is purchasable, the money is inserted into the stash and the change is calculated by subracting the
+        drink price from the amount of money inserted. The change calculates and returns the least amount of coins.
+        The drink is then removed from the fridge and the total revenue is calcualted.
+
+        Args:
+            drink (Drinks): instance of specific drink.
+        """
+        total = 0
+        if self.purchasable(drink) != f"{drink.name} is purchasable":
+            print(f"{drink.name} is not purchasable")
+        else:
+            if drink.price == 120:
+                self.stash.append(Money.M_100)
+                self.stash.append(Money.M_10)
+                self.stash.append(Money.M_10)
+            else:
+                pass
+            for cash in self.money_box:
+                total += cash.amount
+            pay = total - drink.price
+            self.calculate_change(pay)
+            self.fridge.remove(drink.name)
+            self.revenue = sum(x.amount for x in self.stash)
