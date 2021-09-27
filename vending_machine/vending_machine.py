@@ -90,11 +90,11 @@ class VendingMachine:
         """
         money = [Money.M_1000, Money.M_500, Money.M_100, Money.M_50, Money.M_10]
         for x in money:
-            at_least_one = pay // x.amount
-            if at_least_one >= 1:
-                for amount in range(1, at_least_one + 1):
+            has_type_money = pay // x.amount
+            if has_type_money >= 1:
+                for amount in range(1, has_type_money + 1):
                     self.change.append(x)
-                pay -= x.amount * (at_least_one)
+                pay -= x.amount * (has_type_money)
 
     def buy(self, drink):
         """ Method to buy drinks from the vending machine.
