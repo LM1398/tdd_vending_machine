@@ -1,5 +1,5 @@
-    """ Contains an instance for each type of currency (1 yen, 10 yen, ... etc.)
-    """
+""" Contains an instance for each type of currency (1 yen, 10 yen, ... etc.)
+"""
 
 from enum import Enum, unique
 
