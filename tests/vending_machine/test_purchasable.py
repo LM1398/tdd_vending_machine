@@ -4,23 +4,14 @@ from vending_machine.vending_machine import VendingMachine
 
 
 def test_purchasable():
-    coke = Drinks("coke", 120)
+    coke = Drinks("Coke", 120)
+    redbull = Drinks("Redbull", 200)
+    water = Drinks("Water", 100)
     vending_machine = VendingMachine()
-    vending_machine.insert(Money.M_500)
     vending_machine.add_drink(coke, 3)
-    assert vending_machine.purchasable(coke) == "coke is purchasable"
-
-
-def test_more_money():
-    coke = Drinks("coke", 120)
-    vending_machine = VendingMachine()
+    vending_machine.add_drink(redbull, 3)
+    vending_machine.add_drink(water, 3)
+    vending_machine.insert(Money.M_100)
     vending_machine.insert(Money.M_10)
-    vending_machine.add_drink(coke, 3)
-    assert vending_machine.purchasable(coke) == "Insert additional money: 110 yen"
-
-
-def test_not_in_stock():
-    coke = Drinks("coke", 120)
-    vending_machine = VendingMachine()
-    vending_machine.insert(Money.M_1000)
-    assert vending_machine.purchasable(coke) == "coke is not in stock"
+    vending_machine.insert(Money.M_10)
+    assert vending_machine.purchasable() == ["Water", "Coke"]
