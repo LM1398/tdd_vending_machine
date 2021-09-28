@@ -14,5 +14,4 @@ def test_purchasable():
     vending_machine.insert(Money.M_100)
     vending_machine.insert(Money.M_10)
     vending_machine.insert(Money.M_10)
-    print(vending_machine.purchasable())
     assert vending_machine.purchasable() == ["Water", "Coke"]
