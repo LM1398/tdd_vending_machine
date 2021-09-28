@@ -55,17 +55,12 @@ class VendingMachine:
         """
         for _drink in range(1, amount + 1):
             if _drink <= amount:
-                self.fridge.append(drink.name)
-        self.stock = Counter(self.fridge)
+                self.fridge.append(drink)
+        self.stock = Counter(x.name for x in self.fridge)
 
-    def menu(self):
-        """menu returns the different drinks that are available for purchase.
-        """
-        return set(self.fridge)
+    def purchasable(self):
 
-    def purchasable(self, drink):
-
-        """Returns whether a drink is purchasable depending on how much money is inserted and whether the drink is in the fridge.
+        """Returns which drinks are purchasable depending on how much money is inserted and which drinks are in the fridge.
 
         Args:
             drink (Drinks): instance of specific drink
@@ -74,16 +69,13 @@ class VendingMachine:
             str: "drink is purchasable" or "drink is not in stock"
         """
         total = 0
+        purchasable = []
         for cash in self.money_box:
             total += cash.amount
-            if total > drink.price:
-                pass
-            else:
-                return f"Insert additional money: {drink.price - total} yen"
-        if drink.name in self.fridge:
-            return f"{drink.name} is purchasable"
-        else:
-            return f"{drink.name} is not in stock"
+        for _drink in set(self.fridge):
+            if total >= _drink.price:
+                purchasable.append(_drink.name)
+        return purchasable
 
     def calculate_change(self, pay):
         """ Calculates the change return with the least amount of coins/bills 
@@ -108,7 +100,7 @@ class VendingMachine:
             drink (Drinks): instance of specific drink.
         """
         total = 0
-        if self.purchasable(drink) != f"{drink.name} is purchasable":
+        if drink.name not in VendingMachine.purchasable(self):
             print(f"{drink.name} is not purchasable")
         else:
             if drink.price == 120:
@@ -121,5 +113,5 @@ class VendingMachine:
                 total += cash.amount
             pay = total - drink.price
             self.calculate_change(pay)
-            self.fridge.remove(drink.name)
+            self.fridge.remove(drink)
             self.revenue = sum(x.amount for x in self.stash)
