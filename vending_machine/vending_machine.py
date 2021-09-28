@@ -27,7 +27,7 @@ class VendingMachine:
         self.fridge = []
         self.stock = {}
         self.stash = []
-        self.revenue = []
+        self.revenue = 0
         self.accepted = [
             Money.M_1000,
             Money.M_500,
