@@ -120,3 +120,4 @@ class VendingMachine:
             self.calculate_change(pay)
             self.fridge.remove(drink)
             self.revenue = sum(x.amount for x in self.stash)
+            return self.change
