@@ -63,10 +63,10 @@ class VendingMachine:
         """Returns which drinks are purchasable depending on how much money is inserted and which drinks are in the fridge.
 
         Args:
-            drink (Drinks): instance of specific drink
+            drink (Drinks): instance of specific drink.
 
         Returns:
-            str: "drink is purchasable" or "drink is not in stock"
+            purchasable: A list of the purchasable drinks.
         """
         total = 0
         purchasable = []
@@ -89,6 +89,16 @@ class VendingMachine:
                 for amount in range(1, returned_money + 1):
                     self.change.append(x)
                 pay -= x.amount * (returned_money)
+
+    def dispense(self):
+        """Returns the change after buying a drink and clears self.change
+
+        Returns:
+            disepnse: A list containing self.change
+        """
+        dispense = [x for x in self.change]
+        self.change.clear()
+        return dispense
 
     def buy(self, drink):
         """ Method to buy drinks from the vending machine.
@@ -120,4 +130,4 @@ class VendingMachine:
             self.calculate_change(pay)
             self.fridge.remove(drink)
             self.revenue = sum(x.amount for x in self.stash)
-            return self.change
+            return self.dispense()
