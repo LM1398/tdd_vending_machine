@@ -9,8 +9,7 @@ def test_buy():
     vending_machine.insert(Money.M_1000)
     vending_machine.insert(Money.M_1000)
     vending_machine.add_drink(coke, 5)
-    vending_machine.buy(coke)
-    assert vending_machine.change == [
+    assert vending_machine.buy(coke) == [
         Money.M_1000,
         Money.M_500,
         Money.M_100,
