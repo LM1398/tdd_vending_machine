@@ -20,3 +20,11 @@ def test_buy():
         Money.M_10,
         Money.M_10,
     ]
+
+
+def test_no_change():
+    water = Drinks("Water", 100)
+    vending_machine = VendingMachine()
+    vending_machine.insert(Money.M_100)
+    vending_machine.add_drink(water, 5)
+    assert vending_machine.buy(water) == 0

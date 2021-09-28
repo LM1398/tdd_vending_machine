@@ -96,7 +96,10 @@ class VendingMachine:
         Returns:
             disepnse: A list containing self.change
         """
-        dispense = [x for x in self.change]
+        if len(self.change) == 0:
+            dispense = 0
+        else:
+            dispense = [x for x in self.change]
         self.change.clear()
         return dispense
 
