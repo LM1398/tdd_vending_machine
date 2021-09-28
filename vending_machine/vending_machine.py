@@ -107,6 +107,11 @@ class VendingMachine:
                 self.stash.append(Money.M_100)
                 self.stash.append(Money.M_10)
                 self.stash.append(Money.M_10)
+            elif drink.price == 100:
+                self.stash.append(Money.M_100)
+            elif drink.price == 200:
+                self.stash.append(Money.M_100)
+                self.stash.append(Money.M_100)
             else:
                 pass
             for cash in self.money_box:
