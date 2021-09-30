@@ -3,7 +3,6 @@
 
 from vending_machine.money import Money
 from vending_machine.drinks import Drinks
-from collections import Counter
 
 
 class VendingMachine:
@@ -56,7 +55,7 @@ class VendingMachine:
         for _drink in range(1, amount + 1):
             if _drink <= amount:
                 self.fridge.append(drink)
-        self.stock = Counter(x.name for x in self.fridge)
+        self.stock[drink.name] = self.fridge.count(drink)
 
     def purchasable(self):
 
