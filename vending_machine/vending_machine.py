@@ -16,6 +16,7 @@ class VendingMachine:
         stock: A dictionary that counts the amount of each drink in self.fridge.
         revenue: A list that counts the total revenue of the vending machine.
         accepted: A list of all the accepted types of currencies
+        
 
     """
 
@@ -116,17 +117,13 @@ class VendingMachine:
         if drink.name not in VendingMachine.purchasable(self):
             print(f"{drink.name} is not purchasable")
         else:
-            if drink.price == 120:
-                self.stash.append(Money.M_100)
-                self.stash.append(Money.M_10)
-                self.stash.append(Money.M_10)
-            elif drink.price == 100:
-                self.stash.append(Money.M_100)
-            elif drink.price == 200:
-                self.stash.append(Money.M_100)
-                self.stash.append(Money.M_100)
-            else:
-                pass
+            price = drink.price
+            for currency in self.accepted:
+                if price // currency.amount >= 1:
+                    for amount in range(1, price // currency.amount + 1):
+                        self.stash.append(currency)
+                    price -= currency.amount * amount
+
             for cash in self.money_box:
                 total += cash.amount
             pay = total - drink.price
