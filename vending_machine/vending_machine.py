@@ -13,6 +13,7 @@ class VendingMachine:
         change: A list where the unaccepted types of currencies as well as change from buying drinks are inserted.
         fridge: A list with the name of each drink that is inserted in the machine.
         stock: A dictionary that counts the amount of each drink in self.fridge.
+        stash: A list that contains all of the money within the vending machine.
         revenue: A list that counts the total revenue of the vending machine.
         accepted: A list of all the accepted types of currencies
         
