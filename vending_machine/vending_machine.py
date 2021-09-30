@@ -35,6 +35,12 @@ class VendingMachine:
             Money.M_50,
             Money.M_10,
         ]
+        self.change_for_drinks()
+
+    def change_for_drinks(self):
+        for times in range(10):
+            for types in self.accepted:
+                self.stash.append(types)
 
     def insert(self, cash):
         """ Inserts money separates the types of money into accepted and not-accepted(change) and inserts them into the different lists.
