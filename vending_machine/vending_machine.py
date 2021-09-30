@@ -39,8 +39,8 @@ class VendingMachine:
 
     def change_for_drinks(self):
         for times in range(10):
-            for types in self.accepted:
-                self.stash.append(types)
+            for money in self.accepted:
+                self.stash.append(money)
 
     def insert(self, cash):
         """ Inserts money separates the types of money into accepted and not-accepted(change) and inserts them into the different lists.
@@ -94,14 +94,14 @@ class VendingMachine:
         Args:
             pay (int): Amount of change that will be returned to the buyer.
         """
-        for x in self.accepted:
-            returned_money = pay // x.amount
+        for money in self.accepted:
+            returned_money = pay // money.amount
             if returned_money >= 1:
                 for amount in range(1, returned_money + 1):
-                    if x in self.stash:
-                        self.stash.remove(x)
-                        self.change.append(x)
-                pay -= x.amount * (returned_money)
+                    if money in self.stash:
+                        self.stash.remove(money)
+                        self.change.append(money)
+                pay -= money.amount * (returned_money)
 
     def dispense(self):
         """Returns the change after buying a drink and clears self.change
