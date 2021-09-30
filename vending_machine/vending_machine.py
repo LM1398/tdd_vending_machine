@@ -46,6 +46,7 @@ class VendingMachine:
             self.money_box.append(cash)
         else:
             self.change.append(cash)
+            self.dispense()
 
     def add_drink(self, drink, amount):
         """add_drink is used to add a certain amount of drinks into the fridge list, and the stock counts the number of each drink.
