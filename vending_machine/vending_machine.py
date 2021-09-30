@@ -98,7 +98,9 @@ class VendingMachine:
             returned_money = pay // x.amount
             if returned_money >= 1:
                 for amount in range(1, returned_money + 1):
-                    self.change.append(x)
+                    if x in self.stash:
+                        self.stash.remove(x)
+                        self.change.append(x)
                 pay -= x.amount * (returned_money)
 
     def dispense(self):
