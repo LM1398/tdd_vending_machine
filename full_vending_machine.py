@@ -11,12 +11,16 @@ vending_machine = VendingMachine()
 vending_machine.add_drink(coke, 5)
 vending_machine.add_drink(redbull, 5)
 vending_machine.add_drink(water, 5)
-print("Welcone to the Vending Machine!")
-print("")
-print("Please choose a funciton:")
-print("1. Buy a drink")
-print("2. Check revenue")
-print("3. Check stock")
+print(
+    "Welcone to the Vending Machine!",
+    "",
+    "Please choose a funciton:",
+    "1. Buy a drink",
+    "2. Check revenue",
+    "3. Check stock",
+    sep="\n",
+)
+
 function = input(" ")
 if function == "3":
     print(vending_machine.stock)
@@ -31,66 +35,51 @@ elif function == "1":
     print("")
     choice = input("Choose a drink:")
 
-    if choice == "Redbull":
-        print("")
-        print(f"The price for this drink is {redbull.price} yen")
+    for _drink in vending_machine.fridge:
+        if _drink.name == choice or _drink.name.lower() == choice:
+            print("", f"The price for this drink is {_drink.price} yen", sep="\n")
+            selected = _drink
+            break
 
-        selected = redbull
+    print(
+        "",
+        "Please insert money",
+        "",
+        "Accepeted currencies are: 1000, 500, 100, 50, 10",
+        "E.g. Insert: 100, 10, 10",
+        "",
+        sep="\n",
+    )
 
-    elif choice == "Coke":
-        print("")
-        print(f"The price for this drink is {coke.price} yen")
-
-        selected = coke
-
-    elif choice == "Water":
-        print("")
-        print(f"The price for this drink is {water.price} yen")
-
-        selected = water
-
-    print("")
-    print("Please insert money")
-    print("")
-    print("Accepeted currencies are: 1000, 500, 100, 50, 10")
-    print("E.g. Insert: 100, 10, 10")
-    print("")
     coin = input("Insert:")
     inserted = coin.split(",")
     recognized = [int(x) for x in inserted]
-    if 1000 in recognized:
-        for times in range(recognized.count(1000)):
-            vending_machine.insert(Money.M_1000)
-    if 500 in recognized:
-        for times in range(recognized.count(500)):
-            vending_machine.insert(Money.M_500)
-    if 100 in recognized:
-        for times in range(recognized.count(100)):
-            vending_machine.insert(Money.M_100)
-    if 50 in recognized:
-        for times in range(recognized.count(50)):
-            vending_machine.insert(Money.M_50)
-    if 10 in recognized:
-        for times in range(recognized.count(10)):
-            vending_machine.insert(Money.M_10)
-    print("")
+    for money in vending_machine.accepted:
+        if money.amount in recognized:
+            for times in range(recognized.count(money.amount)):
+                vending_machine.insert(money)
+
     print(
-        f"Total amount inserted = {sum(cash.amount for cash in vending_machine.money_box)} yen"
+        "",
+        f"Total amount inserted = {sum(cash.amount for cash in vending_machine.money_box)} yen",
+        f"Do you want to buy {choice}?",
+        sep="\n",
     )
-    print("")
-    print(f"Do you want to buy {choice}?")
     answer = input("y(yes) or n(no)")
     if answer == "y":
         returns = sum(x.amount for x in vending_machine.money_box) - selected.price
         vending_machine.buy(selected)
-        print("")
-        print(f"Your change is {returns} yen")
-        print("Thank you for your purchase!")
-        print("")
-        print("")
         print(
-            f"========================================================= {selected.name} ========================================================="
+            "",
+            f"Your change is {returns} yen",
+            "Thank you for your purchase!",
+            "",
+            "",
+            f"========================================================= {selected.name} =========================================================",
+            "",
+            "",
+            sep="\n",
         )
+
     else:
         print("See you again")
-
