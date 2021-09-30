@@ -91,6 +91,8 @@ class VendingMachine:
                     self.change.append(x)
                 pay -= x.amount * (returned_money)
 
+        return self.dispense()
+
     def dispense(self):
         """Returns the change after buying a drink and clears self.change
 
@@ -117,6 +119,7 @@ class VendingMachine:
         if drink.name not in VendingMachine.purchasable(self):
             print(f"{drink.name} is not purchasable")
         else:
+
             price = drink.price
             for currency in self.accepted:
                 if price // currency.amount >= 1:
@@ -127,7 +130,4 @@ class VendingMachine:
             for cash in self.money_box:
                 total += cash.amount
             pay = total - drink.price
-            self.calculate_change(pay)
-            self.fridge.remove(drink)
-            self.revenue = sum(x.amount for x in self.stash)
-            return self.dispense()
+        return self.calculate_change(pay)
