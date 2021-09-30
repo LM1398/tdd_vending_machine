@@ -74,6 +74,11 @@ class VendingMachine:
         Returns:
             purchasable: A list of the purchasable drinks.
         """
+        for types in self.accepted:
+            for times in range(5):
+                if types in self.stash:
+                    pass
+
         total = 0
         purchasable = []
         for cash in self.money_box:
