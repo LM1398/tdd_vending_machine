@@ -36,6 +36,15 @@ class VendingMachine:
             Money.M_50,
             Money.M_10,
         ]
+        self.init_drinks()
+
+    def init_drinks(self):
+        coke = Drinks("Coke", 120)
+        redbull = Drinks("Redbull", 200)
+        water = Drinks("Water", 120)
+        drinks = [coke, redbull, water]
+        for _drink in drinks:
+            self.add_drink(_drink, 5)
 
     def insert(self, cash):
         """ Inserts money separates the types of money into accepted and not-accepted(change) and inserts them into the different lists.
@@ -48,6 +57,19 @@ class VendingMachine:
         else:
             self.change.append(cash)
             self.dispense()
+
+    def stats(self):
+        self.revenue = sum(x.amount for x in self.stash)
+        for _drink in self.fridge:
+            min_stock = min([self.stock[_drink] for _drink in self.stock])
+            if self.stock[_drink] == min_stock:
+                popular = _drink
+        print(
+            f"Current stock of drinks are: {self.stock}",
+            f"Total revenue is {self.revenue}",
+            f"Most popular drink(s) is {popular}",
+            sep="\n",
+        )
 
     def add_drink(self, drink, amount):
         """add_drink is used to add a certain amount of drinks into the fridge list, and the stock counts the number of each drink.
@@ -133,4 +155,5 @@ class VendingMachine:
             pay = total - drink.price
             self.fridge.remove(drink)
             self.revenue = sum(x.amount for x in self.stash)
+            self.stock[drink.name] = self.fridge.count(drink)
         return self.calculate_change(pay)
