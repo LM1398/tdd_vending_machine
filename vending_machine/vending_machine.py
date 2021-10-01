@@ -16,7 +16,7 @@ class VendingMachine:
         stash: A list that contains all of the money within the vending machine.
         revenue: A list that counts the total revenue of the vending machine.
         accepted: A list of all the accepted types of currencies
-        
+        init_drinks: A method that adds 5 drinks of each type on init.
 
     """
 
@@ -36,6 +36,15 @@ class VendingMachine:
             Money.M_50,
             Money.M_10,
         ]
+        self.init_drinks()
+
+    def init_drinks(self):
+        coke = Drinks("Coke", 120)
+        redbull = Drinks("Redbull", 200)
+        water = Drinks("Water", 120)
+        drinks = [coke, redbull, water]
+        for _drink in drinks:
+            self.add_drink(_drink, 5)
 
     def insert(self, cash):
         """ Inserts money separates the types of money into accepted and not-accepted(change) and inserts them into the different lists.
